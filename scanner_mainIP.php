@@ -2,7 +2,8 @@
 //echo "hello, world\n";
 class Scanner {
 	public function __construct() {
-		$valid_IP_array = $this->readJsonDataFromFile("total_evil_ip_level.map");
+        //ip放在json文件里
+        $valid_IP_array = $this->readJsonDataFromFile("total_evil_ip_level.map");
 		if	(empty($valid_IP_array) === true) {
 			echo "failed to change this file to an array\n";
 			exit;
@@ -41,7 +42,7 @@ class Scanner {
 		$this->curr_IP_addr = trim( $candidate );
 	}
 	private function scan() {
-
+        //要扫描的端口号
 		$port_array = array(21, 22, 23);
 		$start_index = 0;
 		$end_index = count($port_array) - 1;
@@ -50,7 +51,8 @@ class Scanner {
 			$scan_socket = socket_create( AF_INET, SOCK_STREAM, SOL_TCP );
 
 			$MAX_CONNECT_TIME_SEC = 0;
-			$MAX_CONNECT_TIME_USEC = 300000;
+            $MAX_CONNECT_TIME_USEC = 300000;
+            //设置socket_connect三次握手的发送和接受的时限
 			socket_set_option($scan_socket, SOL_SOCKET, SO_RCVTIMEO,
 					array('sec' => $MAX_CONNECT_TIME_SEC, 'usec' => $MAX_CONNECT_TIME_USEC));
 			socket_set_option($scan_socket, SOL_SOCKET, SO_SNDTIMEO,
